@@ -29,9 +29,9 @@
 }
 
 .top{
-    background-color: rgb(208, 208, 223); 
+    background-color: #d0d0df; 
     height: 150px;
-    text-align: left;
+    text-align: center;
     font-size: 30px;
 
 
@@ -59,9 +59,9 @@
 .name {
     width: 800px;
     float: left;
-    position: absolute;
+ /*   position: absolute;
     left: 20px;
-    top: 50px;
+    top: 50px; */
     text-align: left;
 }
 
