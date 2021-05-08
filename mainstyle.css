@@ -16,6 +16,15 @@
 
 }
 
+.useremail{
+    margin-top: 40px;
+    margin-right: 200px;
+    font-size: 30px;
+    float: right;
+    position: absolute;
+
+}
+
 .container{
     width: 550px;
     height: 700px;

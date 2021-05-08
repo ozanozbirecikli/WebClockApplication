@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatiple" content="ie">
     <title>Clock Application</title>
     <link rel="stylesheet" href="styles1.css">
+    <script type="text/javascript" src="js.js"></script>
 </head>
 
 <body class="background">
@@ -18,12 +20,12 @@
           
             <div class="container">
               <label for="email"><b>Email</b></label>
-              <input type="email" placeholder="Enter Your Email" name="email" required>
+              <input type="email" placeholder="Enter Your Email" name="email" id="email" required>
           
               <label for="psw"><b>Password</b></label>
-              <input type="password" placeholder="Enter Password" name="psw" required>
+              <input type="password" placeholder="Enter Password" name="psw"required>
           
-              <button type="submit">Login</button>
+              <button type="submit" onclick="saveUserLoginEmail(this)">Login </button>
               <label>
                 <input type="checkbox" checked="checked" name="remember"> Remember me
               </label>
