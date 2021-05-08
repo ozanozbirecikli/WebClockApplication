@@ -11,7 +11,7 @@
 
     <body class="background">
         <div class="container">
-            <form action="main_page.html" method="post">
+            <form action="main.html" method="post">
                 <div class="imgcontainer">
                   <img src="images/1.png" alt="Avatar" class="avatar">
                 </div>
@@ -24,7 +24,7 @@
                    
 
                   <label for="uname"><b>Email</b></label>
-                  <input type="email" placeholder="Enter Email" name="uname" required>
+                  <input type="email" placeholder="Enter Email" name="uname"  id="mail" required>
                   <br>
               
                   <label for="psw"><b>Password</b></label>
@@ -36,7 +36,7 @@
                   <label for="birthday"><b>Birthday</b></label>
                   <input type="date" id="birthday" name="birthday">  
               
-                  <button type="submit">Sign Up</button>
+                  <button type="submit" onclick="clearStorage(); saveUserCreateAccountEmail(this);">Sign Up</button>
                   
                 </div>
               
