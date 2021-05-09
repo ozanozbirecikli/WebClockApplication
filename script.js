@@ -1,42 +1,48 @@
 var chronometerID = 0;
 var chronometerIntervals = []
+var chronometerStatus = []
 
-var hour = 0;
-var minute = 0;
-var second = 0;
-var milisecond = 0;
+class chronometer{
+    constructor(id, title, hour, minute, second, milisecond){
+    this.id = id;
+    this.title = title;
+    this.hour = hour;
+    this.minute = minute;
+    this.second = second;
+    this.milisecond = milisecond;
+    }
+}
 
-var hourText = "";
-var minuteText = "";
-var secondText = "";
-var milisecondText = "";
+function runChronometer(chronometer){
 
-var stopped = false;
-
-
-function chronometer(){
-    milisecond++;
-    if(milisecond === 100){
-        milisecond = 0;
-        second ++;
+    var hourText = "";
+    var minuteText = "";
+    var secondText = "";
+    var milisecondText = "";
+   
+    chronometer.milisecond++;
+    if(chronometer.milisecond === 100){
+        chronometer.milisecond = 0;
+        chronometer.second ++;
         
-        if(second === 60){
-            second = 0;
-            minute++;
+        if(chronometer.second === 60){
+            chronometer.second = 0;
+            chronometer.minute++;
 
-            if(minute === 60){
-                minute = 0;
-                hour++;
+            if(chronometer.minute === 60){
+                chronometer.minute = 0;
+                chronometer.hour++;
             }
         }
     }
 
-    milisecondText = updateText(milisecond);
-    secondText = updateText(second);
-    minuteText = updateText(minute);
-    hourText = updateText(hour);
+    milisecondText = updateText(chronometer.milisecond);
+    secondText = updateText(chronometer.second);
+    minuteText = updateText(chronometer.minute);
+    hourText = updateText(chronometer.hour);
 
-    document.getElementById("display").innerHTML = hourText + ":" + minuteText + ":" + secondText + ":" + milisecondText;
+    var view = document.getElementById("container-" + chronometer.id);
+    view.querySelector("#display").innerHTML = hourText + ":" + minuteText + ":" + secondText + ":" + milisecondText;
 
 }
 
@@ -47,13 +53,55 @@ function updateText(value){
     return value.toString();
 }
 
+function start(chronometer){
+    
+    var isStopped = chronometerStatus[chronometer.id];
+    var selectedDiv = document.getElementById("container-" + chronometer.id);
+
+    if(isStopped){
+        window.clearInterval(chronometerIntervals[chronometer.id]);
+        selectedDiv.querySelector("#start-button").innerHTML = "Start";
+        chronometerStatus[chronometer.id] = false;
+        selectedDiv.querySelector("#message").style.visibility = "visible"
+    }else{
+        interval = window.setInterval(runChronometer, 10, chronometer);
+        chronometerIntervals[chronometer.id] = interval;
+        selectedDiv.querySelector("#start-button").innerHTML = "Pause";
+        chronometerStatus[chronometer.id] = true;
+        selectedDiv.querySelector("#message").style.visibility = "hidden"
+    }
+}
+
+function clearTime(chronometer){
+
+    var selectedDiv = document.getElementById("container-" + chronometer.id);
+
+    window.clearInterval(chronometerIntervals[chronometer.id]);
+    chronometer.milisecond = 0;
+    chronometer.second = 0;
+    chronometer.minute = 0;
+    chronometer.hour = 0;
+    chronometerStatus[chronometer.id] = false;
+    selectedDiv.querySelector("#display").innerHTML = "00:00:00:00";
+    selectedDiv.querySelector("#start-button").innerHTML = "Start";
+    selectedDiv.querySelector("#message").style.visibility = "hidden";
+}
+
+function deleteChronometer(id){
+    var selectedDiv = document.getElementById("container-" + id);
+    selectedDiv.parentNode.removeChild(selectedDiv)
+    chronometerStatus[id] = false;
+    window.clearInterval(intervals[id]);
+}
+
 function insertChronometer(){
 
-    var choronometerName = document.getElementById("name-text").value;
+    var choronometerName = document.getElementById("name-text-input").value;
     if(choronometerName === ""){
         alert("Please enter a valid name")
         return;
     }
+    var newChronometer = new chronometer(chronometerID, choronometerName, 0, 0, 0, 0)
     var savedChronometers = document.getElementsByClassName("saved-background")[0];
     var container = document.createElement("div");
     container.className = "container";
@@ -63,6 +111,7 @@ function insertChronometer(){
     container.appendChild(name);
     name.id = "name";
     name.innerHTML = choronometerName;
+    choronometerName = " ";
 
     var message = document.createElement("p");
     container.appendChild(message);
@@ -80,58 +129,29 @@ function insertChronometer(){
 
     var startButton = document.createElement("button");
     startButton.id = "start-button";
-    startButton.setAttribute("onclick","start()")
+    startButton.onclick = function(){
+        start(newChronometer);
+    }
     startButton.innerHTML = "Start";
     buttons.appendChild(startButton);
 
     var clearButton = document.createElement("button");
     clearButton.id = "clear-button";
     clearButton.innerHTML = "Clear";
-    clearButton.setAttribute("onclick","clearTime()")
-    //div"+globalID+"
+    clearButton.onclick = function(){
+        clearTime(newChronometer);
+    }
     buttons.appendChild(clearButton);
 
     var deleteButton = document.createElement("button");
     deleteButton.id = "delete-button";
     deleteButton.innerHTML = "Delete";
-    deleteButton.setAttribute("onclick","clearTime()")
+    deleteButton.setAttribute("onclick","deleteChronometer("+ chronometerID +")")
     buttons.appendChild(deleteButton);
 
     savedChronometers.appendChild(container);
 
+    chronometerStatus[chronometerID] = false;
     chronometerID++;
     
-    
-}
-
-function deleteChronometer(){
-
-}
-
-function start(){
-    
-    if(stopped){
-        window.clearInterval(interval);
-        document.getElementById("start-button").innerHTML = "Start";
-        stopped = false;
-        document.getElementById("message").style.visibility = "visible"
-    }else{
-        interval = window.setInterval(chronometer, 10);
-        document.getElementById("start-button").innerHTML = "Pause";
-        stopped = true;
-        document.getElementById("message").style.visibility = "hidden"
-    }
-}
-
-function clearTime(){
-
-    window.clearInterval(interval);
-    milisecond = 0;
-    second = 0;
-    minute = 0;
-    hour = 0;
-    stopped = false;
-    document.getElementById("display").innerHTML = "00:00:00:00";
-    document.getElementById("start-button").innerHTML = "Start";
-    document.getElementById("message").style.visibility = "hidden"
 }
