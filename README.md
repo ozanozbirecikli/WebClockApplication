@@ -35,6 +35,10 @@ Then User should click add countdown button, and countdown will start. If needed
 
 4. ### Chronometer Page ###
 
+![image](https://user-images.githubusercontent.com/41952823/117576205-a95b4200-b0ed-11eb-85b9-b8915dbd704e.png)
+
+![image](https://user-images.githubusercontent.com/41952823/117576249-de679480-b0ed-11eb-876f-b23460ca00a8.png)
+
 !!! Will be edited. !!!
 
 
