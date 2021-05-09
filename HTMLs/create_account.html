@@ -1,59 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatiple" content="ie">
-        <title>Clock Application</title>
-        <link rel="stylesheet" href="styles1.css">
-        <script type="text/javascript" src="js.js"></script>
-    </head>
 
-    <body class="background">
-        <div class="container">
-            <form action="main.html" method="post">
-                <div class="imgcontainer">
-                  <img src="images/1.png" alt="Avatar" class="avatar">
-                </div>
-              
-                <div class="container">
-                  <label for="name"><b>Name</b></label>
-                  <input type="text" placeholder="Enter Your Name" name="name" required>
-                  <label for="surname"><b>Surname</b></label>
-                  <input type="text" placeholder="Enter Your Surname" name="sname" required>
-                   
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatiple" content="ie">
+  <title>Clock Application</title>
+  <link rel="stylesheet" href="../Styles/styles1.css">
+  <script type="text/javascript" src="../Scripts/js.js"></script>
+</head>
 
-                  <label for="uname"><b>Email</b></label>
-                  <input type="email" placeholder="Enter Email" name="uname"  id="mail" required>
-                  <br>
-              
-                  <label for="psw"><b>Password</b></label>
-                  <input type="password" placeholder="Password" name="psw" id="password" required>
+<body class="background">
+  <div class="container">
+    <form action="main.html" method="post">
+      <div class="imgcontainer">
+        <img src="../images/1.png" alt="Avatar" class="avatar">
+      </div>
 
-                  <label for="psw"><b>Confirm Password</b></label>
-                  <input type="password" placeholder="Confirm Your Password" name="psw_confirm" id="password_confirm" oninput="check(this)" required>
+      <div class="container">
+        <label for="name"><b>Name</b></label>
+        <input type="text" placeholder="Enter Your Name" name="name" required>
+        <label for="surname"><b>Surname</b></label>
+        <input type="text" placeholder="Enter Your Surname" name="sname" required>
 
-                  <label for="birthday"><b>Birthday</b></label>
-                  <input type="date" id="birthday" name="birthday">  
-              
-                  <button type="submit" onclick="clearStorage(); saveUserCreateAccountEmail(this);">Sign Up</button>
-                  
-                </div>
-              
-                <div class="container" style="background-color:#f1f1f1">
-                  <button type="button" class="cancelbtn" onclick="location.href='login.html'">Cancel</button>
-                </div>
-              </form>
-    
-    
-        </div>
-        
-    
-    
-        
-    
-    
-    </body>
+
+        <label for="uname"><b>Email</b></label>
+        <input type="email" placeholder="Enter Email" name="uname" id="mail" required>
+        <br>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Password" name="psw" id="password" required>
+
+        <label for="psw"><b>Confirm Password</b></label>
+        <input type="password" placeholder="Confirm Your Password" name="psw_confirm" id="password_confirm"
+          oninput="check(this)" required>
+
+        <label for="birthday"><b>Birthday</b></label>
+        <input type="date" id="birthday" name="birthday">
+
+        <button type="submit" onclick="clearStorage(); saveUserCreateAccountEmail(this);">Sign Up</button>
+
+      </div>
+
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" class="cancelbtn" onclick="location.href='login.html'">Cancel</button>
+      </div>
+    </form>
+
+
+  </div>
+
+
+
+
+
+
+</body>
 
 
 </html>
