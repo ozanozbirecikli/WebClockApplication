@@ -7,6 +7,10 @@ Website aims to create a platform that  users can use to manage and track their 
 
 - Countdown Functionality : Users can create a block under a title by entering the hour, minute and second they want to count down. By giving these blocks different names, they can create more than one countdown at the same time. In this way, the countdowns will continue independently from each other until they reach 0 after they are started.
 
+## Instructions to Run Program
+1. Clone the git repository in the link [Github Repo](https://github.com/ozanozbirecikli/WebClockApplication.git)
+2. Start login.html
+
 ## Usage Scenarios
 
 1. ### Login or Sign Up
