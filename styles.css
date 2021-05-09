@@ -210,3 +210,17 @@
 #delete-button:hover{
     background:  rgba(202, 4, 4, 0.849);
 }
+.homebutton{
+    text-align: center;
+    
+    margin-left: 75%;
+    width: 100px;
+    height: 100px;
+    background-color:darkblue;
+    color: white;
+    font-size: 25px;    
+    border-radius: 5%;
+    padding:1%;
+    cursor: pointer;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
