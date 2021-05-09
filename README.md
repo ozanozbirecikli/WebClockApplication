@@ -43,9 +43,6 @@ After users create chronometers each chronometer can be stopped, reset and delet
 
 ![image](https://user-images.githubusercontent.com/41952823/117576249-de679480-b0ed-11eb-876f-b23460ca00a8.png)
 
-!!! Will be edited. !!!
-
-
 
 
 ## Used Additional Libraries
