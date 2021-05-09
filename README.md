@@ -21,7 +21,7 @@ To create a new account, user should enter name, surname, email, and password. P
 2. ### Main Page
 User can click chronometer and countdown images on the screen. The images linked to related pages.
 
-!!! Main page ss will be added !!!! 
+<img width="1672" alt="mainpage" src="https://user-images.githubusercontent.com/23231263/117576498-e70c9a80-b0ee-11eb-8ca7-f695fd3cd456.png">
 
 3. ### Countdown Page ###
 
@@ -46,7 +46,7 @@ After users create chronometers each chronometer can be stopped, reset and delet
 
 
 ## Used Additional Libraries
-!!!! Will be updated !!!
+In this project, there is no additional library. All functionality could handled by pure javascript.
 
 ## Responsibilities
 * Utku Özbudak : Developing login & signup page
