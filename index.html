@@ -11,24 +11,46 @@
     <script type="text/javascript" src="script.js"></script>
 </head>
 
-<body class="background">
+<body class="main-background">
 
-    <div class="container">
+    <div class="top-background">
 
-        <div>
-            <p id="message"> Stopped! </p>
-        </div>
+        <div class="name-container">
+            <h2>Save Your Chronometer</h2>
+            <div class="name-input">
 
-        <div id="display">
-            00:00:00:00
-        </div>
+                <div class="name-input-field">
+                    <input type="text" name="" id="name-text" required="">
+                    <label>Please Enter Name</label>
+                    <span></span>
+                </div>
 
-        <div class="buttons">
-            <button id="start-button" onclick="start()">Start</button>
-            <button id="clear-button" onclick="clearTime()">Clear</button>
+                <button type="submit" name="" class="save-button" onclick="insertChronometer()">
+                    Save
+                </button>
+
+            </div>
         </div>
     </div>
 
+    <div class="saved-background">
+        <div class="container">
+
+            <p id="name">Name</p>
+            <p id="message"> Stopped! </p>
+
+            <div id="display">
+                00:00:00:00
+            </div>
+
+            <div class="buttons">
+                <button id="start-button" onclick="start()">Start</button>
+                <button id="clear-button" onclick="clearTime()">Clear</button>
+                <button id="delete-button" onclick="clearTime()">Delete</button>
+            </div>
+        </div>
+
+    </div>
 
 </body>
 
