@@ -2,12 +2,6 @@ import React, {Component} from 'react';
 import '../Styles/chronometerStyles.css'
 import { Link } from "react-router-dom";
 
-const App = () => {
-    const chronometerID = 0;
-    const chronometerIntervals = []
-    const chronometerStatus = []
-}
-
 class chronometer{
     constructor(id, title, hour, minute, second, milisecond){
     this.id = id;
@@ -19,155 +13,163 @@ class chronometer{
     }
 }
 
-const runChronometer = () =>{
-    var hourText = "";
-    var minuteText = "";
-    var secondText = "";
-    var milisecondText = "";
-   
-    chronometer.milisecond++;
-    if(chronometer.milisecond === 100){
-        chronometer.milisecond = 0;
-        chronometer.second ++;
-        
-        if(chronometer.second === 60){
-            chronometer.second = 0;
-            chronometer.minute++;
+class ChronometerPage extends React.Component{ 
 
-            if(chronometer.minute === 60){
-                chronometer.minute = 0;
-                chronometer.hour++;
+    constructor(props) {
+        super(props);
+        this.state = {
+            chronometerID : 0,
+            chronometerIntervals : [],
+            chronometerStatus : []
+        }
+    }
+    
+    deleteChronometer = (id) => {
+
+    var selectedDiv = document.getElementById("container-" + id);
+    selectedDiv.parentNode.removeChild(selectedDiv)
+    this.state.chronometerStatus[id] = false;
+    window.clearInterval(this.state.chronometerIntervals[id]);
+
+    }
+
+    clearTime = (chronometer) => {
+
+        var selectedDiv = document.getElementById("container-" + chronometer.id);
+    
+        window.clearInterval(this.state.chronometerIntervals[chronometer.id]);
+        chronometer.milisecond = 0;
+        chronometer.second = 0;
+        chronometer.minute = 0;
+        chronometer.hour = 0;
+        this.state.chronometerStatus[chronometer.id] = false;
+        selectedDiv.querySelector("#display").innerHTML = "00:00:00:00";
+        selectedDiv.querySelector("#start-button").innerHTML = "Start";
+        selectedDiv.querySelector("#message").style.visibility = "hidden";
+    }
+
+    updateText = (value) => {
+        if(value < 10)
+            return "0" + value.toString();
+        
+        return value.toString();
+    }
+
+    runChronometer = () => {
+        var hourText = "";
+        var minuteText = "";
+        var secondText = "";
+        var milisecondText = "";
+       
+        chronometer.milisecond++;
+        if(chronometer.milisecond === 100){
+            chronometer.milisecond = 0;
+            chronometer.second ++;
+            
+            if(chronometer.second === 60){
+                chronometer.second = 0;
+                chronometer.minute++;
+    
+                if(chronometer.minute === 60){
+                    chronometer.minute = 0;
+                    chronometer.hour++;
+                }
             }
+        }
+    
+        milisecondText = this.updateText(chronometer.milisecond);
+        secondText = this.updateText(chronometer.second);
+        minuteText = this.updateText(chronometer.minute);
+        hourText = this.updateText(chronometer.hour);
+    
+        var view = document.getElementById("container-" + chronometer.id);
+        view.querySelector("#display").innerHTML = hourText + ":" + minuteText + ":" + secondText + ":" + milisecondText;
+    }
+
+    start = (chronometer) => {
+    
+        var isStopped = this.state.chronometerStatus[chronometer.id];
+        var selectedDiv = document.getElementById("container-" + chronometer.id);
+    
+        if(isStopped){
+            window.clearInterval(this.state.chronometerIntervals[chronometer.id]);
+            selectedDiv.querySelector("#start-button").innerHTML = "Start";
+            this.state.chronometerStatus[chronometer.id] = false;
+            selectedDiv.querySelector("#message").style.visibility = "visible"
+        }else{
+            const interval = setInterval(() => {
+                this.runChronometer(chronometer)
+              }, 10);
+            
+            this.state.chronometerIntervals[chronometer.id] = interval;
+            selectedDiv.querySelector("#start-button").innerHTML = "Pause";
+            this.state.chronometerStatus[chronometer.id] = true;
+            selectedDiv.querySelector("#message").style.visibility = "hidden"
         }
     }
 
-    milisecondText = updateText(chronometer.milisecond);
-    secondText = updateText(chronometer.second);
-    minuteText = updateText(chronometer.minute);
-    hourText = updateText(chronometer.hour);
+    insertChronometer = () => {
 
-    var view = document.getElementById("container-" + chronometer.id);
-    view.querySelector("#display").innerHTML = hourText + ":" + minuteText + ":" + secondText + ":" + milisecondText;
-
-}
-
-
-const  updateText = (value) => {
-    if(value < 10)
-        return "0" + value.toString();
-    
-    return value.toString();
-}
-
-const  start = (chronometer) => {
-    
-    var isStopped = App.chronometerStatus[chronometer.id];
-    var selectedDiv = document.getElementById("container-" + chronometer.id);
-
-    if(isStopped){
-        window.clearInterval(App.chronometerIntervals[chronometer.id]);
-        selectedDiv.querySelector("#start-button").innerHTML = "Start";
-        App.chronometerStatus[chronometer.id] = false;
-        selectedDiv.querySelector("#message").style.visibility = "visible"
-    }else{
-        const interval = setInterval(() => {
-            runChronometer(chronometer)
-          }, 10);
+        var choronometerName = document.getElementById("name-text-input").value;
+        if(choronometerName === ""){
+            alert("Please enter a valid name")
+            return;
+        }
+        var newChronometer = new chronometer(this.state.chronometerID, this.state.choronometerName, 0, 0, 0, 0)
+        var savedChronometers = document.getElementsByClassName("saved-background")[0];
+        var container = document.createElement("div");
+        container.className = "item-container";
+        container.id = "container-" + this.state.chronometerID;
         
-        App.chronometerIntervals[chronometer.id] = interval;
-        selectedDiv.querySelector("#start-button").innerHTML = "Pause";
-        App.chronometerStatus[chronometer.id] = true;
-        selectedDiv.querySelector("#message").style.visibility = "hidden"
-    }
-}
-
-const  clearTime = (chronometer) => {
-
-    var selectedDiv = document.getElementById("container-" + chronometer.id);
-
-    window.clearInterval(App.chronometerIntervals[chronometer.id]);
-    chronometer.milisecond = 0;
-    chronometer.second = 0;
-    chronometer.minute = 0;
-    chronometer.hour = 0;
-    App.chronometerStatus[chronometer.id] = false;
-    selectedDiv.querySelector("#display").innerHTML = "00:00:00:00";
-    selectedDiv.querySelector("#start-button").innerHTML = "Start";
-    selectedDiv.querySelector("#message").style.visibility = "hidden";
-}
-
-const deleteChronometer = (id) => {
-    var selectedDiv = document.getElementById("container-" + id);
-    selectedDiv.parentNode.removeChild(selectedDiv)
-    App.chronometerStatus[id] = false;
-    window.clearInterval(App.chronometerIntervals[id]);
-}
-
-const insertChronometer = () => {
-
-    var choronometerName = document.getElementById("name-text-input").value;
-    if(choronometerName === ""){
-        alert("Please enter a valid name")
-        return;
-    }
-    var newChronometer = new chronometer(App.chronometerID, App.choronometerName, 0, 0, 0, 0)
-    var savedChronometers = document.getElementsByClassName("saved-background")[0];
-    var container = document.createElement("div");
-    container.className = "container";
-    container.id = "container-" + App.chronometerID;
+        var name = document.createElement("p");
+        container.appendChild(name);
+        name.id = "name";
+        name.innerHTML = choronometerName;
+        choronometerName = " ";
     
-    var name = document.createElement("p");
-    container.appendChild(name);
-    name.id = "name";
-    name.innerHTML = App.choronometerName;
-    choronometerName = " ";
-
-    var message = document.createElement("p");
-    container.appendChild(message);
-    message.id = "message";
-    message.innerHTML = "Stopped!";
-
-    var display = document.createElement("div");
-    container.appendChild(display);
-    display.id = "display";
-    display.innerHTML = "00:00:00:00";
-
-    var buttons = document.createElement("div");
-    buttons.className = "buttons";
-    container.appendChild(buttons);
-
-    var startButton = document.createElement("button");
-    startButton.id = "start-button";
-    startButton.onclick = function(){
-        start(newChronometer);
-    }
-    startButton.innerHTML = "Start";
-    buttons.appendChild(startButton);
-
-    var clearButton = document.createElement("button");
-    clearButton.id = "clear-button";
-    clearButton.innerHTML = "Clear";
-    clearButton.onclick = function(){
-        clearTime(newChronometer);
-    }
-    buttons.appendChild(clearButton);
-
-    var deleteButton = document.createElement("button");
-    deleteButton.id = "delete-button";
-    deleteButton.innerHTML = "Delete";
-    deleteButton.setAttribute("onClick","deleteChronometer("+ App.chronometerID +")")
-    buttons.appendChild(deleteButton);
-
-    savedChronometers.appendChild(container);
-
-    App.chronometerStatus[App.chronometerID] = false;
-    App.chronometerID++;
+        var message = document.createElement("p");
+        container.appendChild(message);
+        message.id = "message";
+        message.innerHTML = "Stopped!";
     
-}
-
-
-class ChronometerPage extends React.Component{ 
-
+        var display = document.createElement("div");
+        container.appendChild(display);
+        display.id = "display";
+        display.innerHTML = "00:00:00:00";
+    
+        var buttons = document.createElement("div");
+        buttons.className = "buttons";
+        container.appendChild(buttons);
+    
+        var startButton = document.createElement("button");
+        startButton.id = "start-button";
+        startButton.onclick = () => {
+            this.start(newChronometer);
+        }
+        startButton.innerHTML = "Start";
+        buttons.appendChild(startButton);
+    
+        var clearButton = document.createElement("button");
+        clearButton.id = "clear-button";
+        clearButton.innerHTML = "Clear";
+        clearButton.onclick = function(){
+            this.clearTime(newChronometer);
+        }
+        buttons.appendChild(clearButton);
+    
+        var deleteButton = document.createElement("button");
+        deleteButton.id = "delete-button";
+        deleteButton.innerHTML = "Delete";
+        deleteButton.setAttribute("onClick","deleteChronometer("+ this.state.chronometerID +")")
+        buttons.appendChild(deleteButton);
+    
+        savedChronometers.appendChild(container);
+    
+        this.state.chronometerStatus[this.state.chronometerID] = false;
+        this.state.chronometerID++;
+        
+    }
+    
     render(){
         return(
 
@@ -186,7 +188,7 @@ class ChronometerPage extends React.Component{
                             <span></span>
                         </div>
 
-                        <button type="submit" name="" class="save-button" onClick={insertChronometer}>
+                        <button type="submit" name="" class="save-button" onClick={this.insertChronometer}>
                             Save
                         </button>
 
