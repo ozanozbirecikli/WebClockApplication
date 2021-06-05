@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import '../Styles/styles1.css'
 import loginImage from '../images/3.png'
 import { Link } from "react-router-dom";

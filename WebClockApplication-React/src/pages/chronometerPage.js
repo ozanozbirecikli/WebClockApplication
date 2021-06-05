@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
 import '../Styles/chronometerStyles.css'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 class chronometer{
     constructor(id, title, hour, minute, second, milisecond){
@@ -25,17 +26,17 @@ class ChronometerPage extends React.Component{
     }
     
     deleteChronometer = (id) => {
-
-    var selectedDiv = document.getElementById("container-" + id);
-    selectedDiv.parentNode.removeChild(selectedDiv)
+    var containerName = "container-" + id.toString();
+    var selectedDiv = document.getElementById(containerName);
+    ReactDOM.findDOMNode(selectedDiv).parentNode.removeChild(selectedDiv)
     this.state.chronometerStatus[id] = false;
     window.clearInterval(this.state.chronometerIntervals[id]);
 
     }
 
     clearTime = (chronometer) => {
-
-        var selectedDiv = document.getElementById("container-" + chronometer.id);
+        var containerName = "container-" + chronometer.id.toString();
+        var selectedDiv = document.getElementById(containerName);
     
         window.clearInterval(this.state.chronometerIntervals[chronometer.id]);
         chronometer.milisecond = 0;
@@ -55,7 +56,7 @@ class ChronometerPage extends React.Component{
         return value.toString();
     }
 
-    runChronometer = () => {
+    runChronometer = (chronometer) => {
         var hourText = "";
         var minuteText = "";
         var secondText = "";
@@ -109,12 +110,13 @@ class ChronometerPage extends React.Component{
     }
 
     insertChronometer = () => {
-
-        var choronometerName = document.getElementById("name-text-input").value;
+        var newChronometer = document.getElementById("name-text-input");
+        var choronometerName = newChronometer.value;
         if(choronometerName === ""){
             alert("Please enter a valid name")
             return;
         }
+        newChronometer.value = "";
         var newChronometer = new chronometer(this.state.chronometerID, this.state.choronometerName, 0, 0, 0, 0)
         var savedChronometers = document.getElementsByClassName("saved-background")[0];
         var container = document.createElement("div");
@@ -152,7 +154,7 @@ class ChronometerPage extends React.Component{
         var clearButton = document.createElement("button");
         clearButton.id = "clear-button";
         clearButton.innerHTML = "Clear";
-        clearButton.onclick = function(){
+        clearButton.onclick = () => {
             this.clearTime(newChronometer);
         }
         buttons.appendChild(clearButton);
@@ -160,7 +162,11 @@ class ChronometerPage extends React.Component{
         var deleteButton = document.createElement("button");
         deleteButton.id = "delete-button";
         deleteButton.innerHTML = "Delete";
-        deleteButton.setAttribute("onClick","deleteChronometer("+ this.state.chronometerID +")")
+        deleteButton.selectedId = this.state.chronometerID;
+        deleteButton.addEventListener('click', () => {
+            
+            this.deleteChronometer(deleteButton.selectedId);
+        })
         buttons.appendChild(deleteButton);
     
         savedChronometers.appendChild(container);

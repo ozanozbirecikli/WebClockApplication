@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as  Route, Link, Switch } from "react-router-dom";
 import '../Styles/mainstyle.css'
 import chronometerImage from '../images/chronometer.png'
 import countDownImage from '../images/countdown.jpg'
@@ -9,6 +9,13 @@ const clearStorage = (status) => {
         let localStorage = window.localStorage;
         localStorage.clear();
     }
+}
+
+const returnUserEmail = (input) => {
+    if(localStorage.getItem("newUserEmail") === null){
+        return localStorage.getItem("user");
+    }
+    else return localStorage.getItem("newUserEmail");
 }
 
 class Home extends React.Component{
@@ -21,7 +28,7 @@ class Home extends React.Component{
                 <div class = "title">
                     <h1 class="name"> Clock Management App</h1>
                     <p1 class="useremail">You are logged as
-                        <script>document.write(returnUserEmail(this));</script>
+                        {document.write(returnUserEmail(this) ? returnUserEmail(this) : "")}
                     </p1>
                 </div>
                 <div class = "dashboard">
