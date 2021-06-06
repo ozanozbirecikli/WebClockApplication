@@ -21,17 +21,22 @@ class ChronometerPage extends React.Component{
         this.state = {
             chronometerID : 0,
             chronometerIntervals : [],
-            chronometerStatus : []
+            chronometerStatus : [],
+            chronometerNames : []
         }
     }
     
+    setChronometerName = (index) => {
+        this.state.chronometerNames[index] = "";
+    }
+
     deleteChronometer = (id) => {
     var containerName = "container-" + id.toString();
     var selectedDiv = document.getElementById(containerName);
+    this.setChronometerName(id);
     ReactDOM.findDOMNode(selectedDiv).parentNode.removeChild(selectedDiv)
     this.state.chronometerStatus[id] = false;
     window.clearInterval(this.state.chronometerIntervals[id]);
-
     }
 
     clearTime = (chronometer) => {
@@ -109,20 +114,7 @@ class ChronometerPage extends React.Component{
         }
     }
 
-    insertChronometer = () => {
-        var newChronometer = document.getElementById("name-text-input");
-        var choronometerName = newChronometer.value;
-        if(choronometerName === ""){
-            alert("Please enter a valid name")
-            return;
-        }
-        newChronometer.value = "";
-        var newChronometer = new chronometer(this.state.chronometerID, this.state.choronometerName, 0, 0, 0, 0)
-        var savedChronometers = document.getElementsByClassName("saved-background")[0];
-        var container = document.createElement("div");
-        container.className = "item-container";
-        container.id = "container-" + this.state.chronometerID;
-        
+    createFields = (container, choronometerName, newChronometer) => {
         var name = document.createElement("p");
         container.appendChild(name);
         name.id = "name";
@@ -169,6 +161,35 @@ class ChronometerPage extends React.Component{
         })
         buttons.appendChild(deleteButton);
     
+    }
+
+    checkChronometerName = (choronometerName) => {
+        return this.state.chronometerNames.includes(choronometerName);
+    }
+
+    insertChronometer = () => {
+        var newChronometer = document.getElementById("name-text-input");
+        var choronometerName = newChronometer.value;
+        
+        if(choronometerName === ""){
+            alert("Please Enter a Valid Name")
+            return;
+        }
+        if(this.checkChronometerName(choronometerName)){
+            newChronometer.value = ""
+            alert("Please Enter a Differenct Name")
+            return;
+        }
+        this.state.chronometerNames.push(choronometerName);
+        newChronometer.value = "";
+        var newChronometer = new chronometer(this.state.chronometerID, this.state.choronometerName, 0, 0, 0, 0)
+        var savedChronometers = document.getElementsByClassName("saved-background")[0];
+        var container = document.createElement("div");
+        container.className = "item-container";
+        container.id = "container-" + this.state.chronometerID;
+        
+        this.createFields(container, choronometerName, newChronometer);
+        
         savedChronometers.appendChild(container);
     
         this.state.chronometerStatus[this.state.chronometerID] = false;
