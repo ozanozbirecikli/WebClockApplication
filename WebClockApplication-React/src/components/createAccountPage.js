@@ -1,5 +1,5 @@
 import React from 'react';
-import '../Styles/styles1.css'
+import '../Styles/loginStyles.css'
 import createAccountImage from '../images/1.png'
 import { Link } from "react-router-dom";
 

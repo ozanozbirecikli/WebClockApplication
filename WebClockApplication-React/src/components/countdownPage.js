@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import '../Styles/stylesCD.css'
+import '../Styles/countdownStyles.css'
 import { Link } from "react-router-dom";
 
 class CountdownPage extends React.Component{

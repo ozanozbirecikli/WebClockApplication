@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Route, Link } from "react-router-dom";
-import '../Styles/mainstyle.css'
+import '../Styles/homeStyles.css'
 import chronometerImage from '../images/chronometer.png'
 import countDownImage from '../images/countdown.jpg'
 
