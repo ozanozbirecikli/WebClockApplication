@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import axios from 'axios'
 import ReactDOM from 'react-dom'
 import '../Styles/chronometerStyles.css'
 import { Link } from "react-router-dom"
@@ -28,6 +29,35 @@ class ChronometerPage extends React.Component{
     
     setChronometerName = (index) => {
         this.state.chronometerNames[index] = "";
+    }
+
+    getExampleChronometers = () =>{
+
+        axios.get(`https://608dc26ffe2e9c00171e1f61.mockapi.io/api/v1/chronometers`)
+            .then(res => {
+                
+                var examples = res.data;
+                examples.map((item) => {
+                    var name = item.name;
+                    var hour = item.hour;
+                    var minute = item.minute;
+                    var second = item.second;
+                    var millisecond = item.millisecond;
+                    console.log("item is: " + item)
+                    console.log("hour: " + hour + " minute: " + minute +" second: " + second + " millisecond: " + millisecond)
+                    var newChronometer = new chronometer(this.state.chronometerID, this.state.choronometerName, hour, minute, second, millisecond)
+                    var savedChronometers = document.getElementsByClassName("saved-background")[0];
+                    var container = document.createElement("div");
+                    container.className = "item-container";
+                    container.id = "container-" + this.state.chronometerID;
+                    
+                    this.createFields(container, name, newChronometer);
+                    savedChronometers.appendChild(container);   
+                    this.renderView(newChronometer.id, newChronometer.hour, newChronometer.minute, newChronometer.second, newChronometer.milisecond); 
+                    this.state.chronometerStatus[this.state.chronometerID] = false;
+                    this.state.chronometerID++; 
+                })
+            })
     }
 
     deleteChronometer = (id) => {
@@ -62,11 +92,7 @@ class ChronometerPage extends React.Component{
     }
 
     runChronometer = (chronometer) => {
-        var hourText = "";
-        var minuteText = "";
-        var secondText = "";
-        var milisecondText = "";
-       
+        
         chronometer.milisecond++;
         if(chronometer.milisecond === 100){
             chronometer.milisecond = 0;
@@ -82,13 +108,21 @@ class ChronometerPage extends React.Component{
                 }
             }
         }
+        this.renderView(chronometer.id, chronometer.hour, chronometer.minute, chronometer.second, chronometer.milisecond);
+    }
+
+    renderView = (id, hour, minute, second, milisecond) => {
+        var hourText = "";
+        var minuteText = "";
+        var secondText = "";
+        var milisecondText = "";
+       
+        milisecondText = this.updateText(milisecond);
+        secondText = this.updateText(second);
+        minuteText = this.updateText(minute);
+        hourText = this.updateText(hour);
     
-        milisecondText = this.updateText(chronometer.milisecond);
-        secondText = this.updateText(chronometer.second);
-        minuteText = this.updateText(chronometer.minute);
-        hourText = this.updateText(chronometer.hour);
-    
-        var view = document.getElementById("container-" + chronometer.id);
+        var view = document.getElementById("container-" + id);
         view.querySelector("#display").innerHTML = hourText + ":" + minuteText + ":" + secondText + ":" + milisecondText;
     }
 
@@ -189,9 +223,7 @@ class ChronometerPage extends React.Component{
         container.id = "container-" + this.state.chronometerID;
         
         this.createFields(container, choronometerName, newChronometer);
-        
-        savedChronometers.appendChild(container);
-    
+        savedChronometers.appendChild(container);    
         this.state.chronometerStatus[this.state.chronometerID] = false;
         this.state.chronometerID++;
         
@@ -221,6 +253,9 @@ class ChronometerPage extends React.Component{
 
                     </div>
                 </div>
+                <button type="submit" name="" class="example-button" onClick={this.getExampleChronometers}>
+                            Example Chronometers
+                </button>
             </div>
 
             <div class="saved-background">

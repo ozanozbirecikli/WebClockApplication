@@ -96,6 +96,24 @@
     background: blue;
 }
 
+.example-button{
+    
+    margin-top: 5%;
+    border-radius: 2%;
+    background: rgb(121, 1, 1);
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow:none;
+    padding: 10px 25px;
+}
+
+.example-button:hover{
+    background: rgb(218, 1, 1);
+}
+
 .item-container{
     border-radius: 15%;
     height: 275px;
