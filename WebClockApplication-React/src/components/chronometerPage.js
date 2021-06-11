@@ -45,7 +45,8 @@ class ChronometerPage extends React.Component{
                     var millisecond = item.millisecond;
                     console.log("item is: " + item)
                     console.log("hour: " + hour + " minute: " + minute +" second: " + second + " millisecond: " + millisecond)
-                    var newChronometer = new chronometer(this.state.chronometerID, this.state.choronometerName, hour, minute, second, millisecond)
+                    var newChronometer = new chronometer(this.state.chronometerID, name, hour, minute, second, millisecond)
+                    this.state.chronometerNames.push(name);
                     var savedChronometers = document.getElementsByClassName("saved-background")[0];
                     var container = document.createElement("div");
                     container.className = "item-container";
@@ -67,6 +68,14 @@ class ChronometerPage extends React.Component{
     ReactDOM.findDOMNode(selectedDiv).parentNode.removeChild(selectedDiv)
     this.state.chronometerStatus[id] = false;
     window.clearInterval(this.state.chronometerIntervals[id]);
+    }
+    
+    deleteStoppedChronometers = () => {
+        for(var i = 0 ; i < this.state.chronometerID; i++){
+            var container = document.getElementById("container-" + i.toString());
+            if(container != null && this.state.chronometerStatus[i] === false)
+                this.deleteChronometer(i);
+        }
     }
 
     clearTime = (chronometer) => {
@@ -255,6 +264,9 @@ class ChronometerPage extends React.Component{
                 </div>
                 <button type="submit" name="" class="example-button" onClick={this.getExampleChronometers}>
                             Example Chronometers
+                </button>
+                <button type="submit" name="" class="delete-stopped-button" onClick={this.deleteStoppedChronometers}>
+                            Delete Stopped Chronometers
                 </button>
             </div>
 
