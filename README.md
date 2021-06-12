@@ -3,13 +3,15 @@
 ## Description
 Website aims to create a platform that  users can use to manage and track their time. There are two main functions that users can use.
 
-- Chronometer Functionality : Users can create multiple stopwatch blocks under a specific name. These blocks work independently from each other.
+- Chronometer Functionality : Users can create multiple stopwatch blocks under a specific name and use already defined stopwatches. These blocks work independently from each other. Stopped chronometers can also be deleted with one button
 
 - Countdown Functionality : Users can create a block under a title by entering the hour, minute and second they want to count down. By giving these blocks different names, they can create more than one countdown at the same time. In this way, the countdowns will continue independently from each other until they reach 0 after they are started.
 
 ## Instructions to Run Program
 1. Clone the git repository in the link [Github Repo](https://github.com/ozanozbirecikli/WebClockApplication.git)
-2. Start login.html
+2. Run npm install command to install npm modules used in the project
+3. Run npm start command to start the project
+4. Login page will appear on the screen
 
 ## Usage Scenarios
 
@@ -25,21 +27,27 @@ To create a new account, user should enter name, surname, email, and password. P
 ### 2. Main Page
 User can click chronometer and countdown images on the screen. The images linked to related pages.
 
-<img width="1672" alt="mainpage" src="https://user-images.githubusercontent.com/23231263/117576498-e70c9a80-b0ee-11eb-8ca7-f695fd3cd456.png">
+![image](https://user-images.githubusercontent.com/41952823/121785949-8b3da180-cbc5-11eb-9301-c81a96fe6f2f.png)
 
 ### 3. Countdown Page ###
 
 User should fill  name, hour, minute and second areas dependent on their needs. hour, minute and seconds fields only accept integers. Otherwise, system will rise an error
 
-<img width="1548" alt="Countdown screen" src="https://user-images.githubusercontent.com/23231263/117544276-5ddf6000-b029-11eb-910b-2f12c433d2d1.png">
+![image](https://user-images.githubusercontent.com/41952823/121785765-6432a000-cbc4-11eb-808d-bfd38b1e1d56.png)
 
-Then User should click add countdown button, and countdown will start. If needed user can delete block by clicking delete button near to the block
+Then, User should click add countdown button, and countdown will start. If needed user can delete block by clicking delete button near to the block
 
-<img width="1548" alt="Coundown started" src="https://user-images.githubusercontent.com/23231263/117544324-967f3980-b029-11eb-98df-26136f1f002c.png">
+Users can also create example countdowns with already defined values.
+
+![image](https://user-images.githubusercontent.com/41952823/121785777-757bac80-cbc4-11eb-8790-a8e098c37807.png)
 
 ### 4. Chronometer Page ###
 
-Users should fill the name of the chronometer to their needs. If the name is empty alert dialog will be shown to user which states that empty string is not allowed for chronometer name.
+Users should fill in the name of the chronometer to their needs. If the name is empty alert dialog will be shown to the user which states that an empty string is not allowed for the chronometer name.
+
+Default example chronometers can also be used.
+
+User can delete all the stopped chronometers with "Delete Stopped Chronometers" button.
 
 ![image](https://user-images.githubusercontent.com/41952823/121785694-f1c1c000-cbc3-11eb-9e89-a9caa76e0d5c.png)
 
@@ -50,7 +58,11 @@ After users create chronometers each chronometer can be stopped, reset and delet
 
 
 ## Used Additional Libraries
-In this project, there is no additional library. All functionality could handled by pure javascript.
+
+* React
+* React-router
+* React-bootstrap
+* Axios
 
 ## Responsibilities
 * Utku Özbudak : Developing login & signup page
