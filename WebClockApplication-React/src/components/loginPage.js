@@ -3,12 +3,28 @@ import '../Styles/loginStyles.css'
 import loginImage from '../images/3.png'
 import { Link } from "react-router-dom";
 
+let localStorage = window.localStorage;
+
 class Login extends React.Component{
+    saveUserLoginEmail = (input) => {
+        var email = document.getElementById("email").value;
+        localStorage.setItem("user", email);
+    }
+
+    check = (input) => {
+        var email = document.getElementById("email").value;
+        if(localStorage.getItem(email)) {
+            alert("ok");
+            return true;
+        }
+        alert("User doesn't exist");
+        return false;
+    }
     render(){
         return(
         <div class="background">
         <div class="container-login">
-            <form action="main.html" method="post">
+            <form action="/" method="post" onsubmit="return check();">
             <div class="imgcontainer">
                 <img src={loginImage} alt="Avatar" class="avatar"/>
             </div>
@@ -19,8 +35,10 @@ class Login extends React.Component{
 
                 <label for="psw"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" name="psw" required/>
-
-                <button type="submit" onclick="saveUserLoginEmail(this)">Login </button>
+                <Link to={{ pathname: "/" }}>
+                <button type="submit" onclick="saveUserLoginEmail(this);">Login </button>
+                </Link>
+                
                 <label>
                 <input type="checkbox" checked="checked" name="remember"/>
                 Remember me

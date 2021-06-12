@@ -3,13 +3,56 @@ import '../Styles/loginStyles.css'
 import createAccountImage from '../images/1.png'
 import { Link } from "react-router-dom";
 
+let localStorage = window.localStorage;
+
 class CreateAccount extends React.Component{
+    
+    check = () => {
+        if (document.getElementById('password_confirm').value != document.getElementById('password').value) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    saveUserCreateAccountEmail = (input) => {
+        var email = document.getElementById("mail").value;
+        localStorage.setItem("newUserEmail", email);
+    }
+
+    returnUserEmail = (input) => {
+        if(localStorage.getItem("newUserEmail") === null){
+            return localStorage.getItem("user");
+        }
+        else return localStorage.getItem("newUserEmail");
+    }
+
+    clearStorage = () => {
+        localStorage.clear();
+    }
+    
+    register = () => {
+        if(this.check() == true){
+            var email = document.getElementById('email').value;
+            if(localStorage.getItem(email)){
+                alert("User already exists");
+                return false;
+            }
+            alert("Account created");
+            return true;
+        }
+        else { 
+        alert("Passwords doesn't match.");
+        return false;
+        }
+    }
+    
     render(){
         return(
         
             <div class="background">
             <div class="container-login">
-                <form action="main.html" method="post">
+                <form action="/" class='register' onsubmit={this.register}>
                 <div class="imgcontainer">
                     <img src={createAccountImage} alt="Avatar" class="avatar"/>
                 </div>
@@ -30,12 +73,15 @@ class CreateAccount extends React.Component{
 
                     <label for="psw"><b>Confirm Password</b></label>
                     <input type="password" placeholder="Confirm Your Password" name="psw_confirm" id="password_confirm"
-                    oninput="check(this)" required/>
+                    required/>
 
                     <label for="birthday"><b>Birthday</b></label>
                     <input type="date" id="birthday" name="birthday"/>
 
-                    <button type="submit" onclick="clearStorage(); saveUserCreateAccountEmail(this);">Sign Up</button>
+                    
+                    <button type="submit" onclick="saveUserCreateAccountEmail(this);">Sign Up</button>
+                    
+                    
 
                 </div>
 
