@@ -1,8 +1,8 @@
 
 
 .linkedImages{
-    width: 60%;
-    height: 50%;
+    width:500px;
+    height:500px;
     border-radius: 15%;
     align-self: center;
     margin-left: 5%;
@@ -10,7 +10,7 @@
 }
 
 .background-home{
-    background-color: rgb(208, 208, 223);
+   background-color: whitesmoke;
 }
 
 .useremail{
@@ -24,31 +24,39 @@
 }
 
 .container{
-    width: 550px;
+    width:550px;
     height: 550px;
     padding: 2%;
     float: left;
     text-align: center;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 25px;
-    background-color: rgb(208, 208, 223);
+    
 
 }
 
+.container-bottom{
+    width: 100%;
+    height: 100%;
+    background-color:yellow;
+    
+}
+
 .top{
-    background-color: #d0d0df; 
-    height: 150px;
+    background-color: rgb(208, 208, 223);    height: 150px;
     text-align: center;
     font-size: 30px;
 }
 
 .middle{
-    width: 100%;
-    height: 100%;
     clear:both;
     background-color: rgb(208, 208, 223);
     
+}
 
+.bottom{
+    clear:both;
+    background-color: black;
 }
 
 .logout-button{
@@ -71,4 +79,6 @@
     top: 50px; */
     text-align: left;
 }
+
+
 
