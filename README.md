@@ -7,11 +7,13 @@ Website aims to create a platform that  users can use to manage and track their 
 
 - Countdown Functionality : Users can create a block under a title by entering the hour, minute and second they want to count down. By giving these blocks different names, they can create more than one countdown at the same time. In this way, the countdowns will continue independently from each other until they reach 0 after they are started.
 
+- mockapi.io used for generating mock up data. Endpoints of mockapi.io used with axios library
+
 ## Instructions to Run Program
 1. Clone the git repository in the link [Github Repo](https://github.com/ozanozbirecikli/WebClockApplication.git)
 2. Run npm install command to install npm modules used in the project
 3. Run npm start command to start the project
-4. Login page will appear on the screen
+4. Home page will appear on the screen
 
 ## Usage Scenarios
 
