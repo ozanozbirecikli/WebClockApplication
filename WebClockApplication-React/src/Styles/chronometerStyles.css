@@ -32,7 +32,7 @@
 .name-input-field{
     margin-top: 5%;
     position: relative;
-    height: 25px;
+    height: 100%;
     width: 100%;
     margin-left: 3%;
     margin-right: 10%;
@@ -80,7 +80,7 @@
 
 .save-button{
     width: 50%;
-    margin-top: 15%;
+    margin-top: 5%;
     border-radius: 5%;
     box-shadow:none;
     padding: 10px 25px;
@@ -135,7 +135,7 @@
 
 .item-container{
     border-radius: 15%;
-    height: 275px;
+    height: 65%;
     width: 75%;
     text-align: center;
     margin-top: 10%;
@@ -162,7 +162,6 @@
     display: grid;
     grid-template-columns: auto auto auto;
     padding: 5%;
-    grid-gap: 10%;
     
 }
 
@@ -186,6 +185,7 @@
 }
 
 #name{
+    margin-top: 12%;
     width:100%;
     font-size: 30px;;
     text-align: center;
@@ -252,10 +252,9 @@
 
 .home-button{
     text-align: center;    
-    margin-top: 50%;
     margin-left: 75%;
-    width: 100px;
-    height: 100px;
+    width: 7%;
+    height: 100%;
     background-color:darkblue;
     color: white;
     font-weight: bold;
@@ -267,5 +266,6 @@
 }
 
 .home-button:hover{
+    color: white;
     background: blue;
 }

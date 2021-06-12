@@ -3,7 +3,8 @@ import { BrowserRouter as Route, Link } from "react-router-dom";
 import '../Styles/homeStyles.css'
 import chronometerImage from '../images/chronometer.png'
 import countDownImage from '../images/countdown.jpg'
-import Footer from './Footer'
+import Footer from './footer'
+
 
 const clearStorage = (status) => {
     if (status) {
@@ -18,7 +19,6 @@ const returnUserEmail = () => {
         return localStorage.getItem("user");
     }
     else return localStorage.getItem("newUserEmail");
-
 }
 
 class Home extends React.Component {
@@ -27,7 +27,6 @@ class Home extends React.Component {
             <div className="container-fluid" style={{ backgroundColor: 'white' }}>
                 <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
                     <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-                        
                         <span class="fs-4">Clock Management App</span>
                     </a>
 

@@ -3,7 +3,7 @@ import axios from 'axios'
 import ReactDOM from 'react-dom'
 import '../Styles/chronometerStyles.css'
 import { Link } from 'react-router-dom'
-import { Container, Row, Col } from 'reactstrap'
+
 
 class chronometer{
     constructor(id, title, hour, minute, second, milisecond){
@@ -239,68 +239,78 @@ class ChronometerPage extends React.Component{
         
     }
     
-    render(){
-        return(
+render(){
+    return(
 
-        <div class="main-background">
-            <div class="top-background">
-                <Container fluid={true}>
-            <Link to={{ pathname: "/home" }}>
-                <Row>
-                <a class="home-button">HOME</a>
-                </Row>
-            </Link>
-                <Row>
-                <Col sm="12" md="12">
-                <div class="name-container">
-                    <h2>Save Your Chronometer</h2>
-                    <div class="name-input">
-
-                        <div class="name-input-field">
-                            <input type="text" id="name-text-input" required=""></input>
-                            <label>Please Enter The Name</label>
-                            <span></span>
-                        </div>
-
-                        <button type="submit" name="" class="save-button" onClick={this.insertChronometer}>
-                            Save
-                        </button>
-
+    <div class="main-background">
+        <div class="top-background">
+            <div className="container-fluid">
+                <Link to={{ pathname: "/home" }}>
+                <div className="row" style = {{marginBottom:"5%"}}>
+                    <div className="col">
+                        <a class="home-button">HOME</a>
                     </div>
                 </div>
-                <button type="submit" name="" class="example-button" onClick={this.getExampleChronometers}>
-                            Example Chronometers
-                </button>
-                <button type="submit" name="" class="delete-stopped-button" onClick={this.deleteStoppedChronometers}>
-                            Delete Stopped Chronometers
-                </button>
-                </Col>
-                </Row>
-                </Container>
-            </div>
-            <Container fluid={true}>
-             <Row>
-            <div class="saved-background">
-                {/* <div class="item-container">
+                </Link>
 
-                    <p id="name">Name</p>
-                    <p id="message"> Stopped! </p>
+                <div className="row">
+                    <div class="col">
+                        <div className="row">
+                            <div class="name-container">
+                                <h2>Save Your Chronometer</h2>
+                                <div class="name-input"/>
+                                
+                                <div class="name-input-field">
+                                    <input type="text" id="name-text-input" required=""></input>
+                                    <label>Please Enter The Name</label>
+                                    <span></span>
+                                </div>
 
-                    <div id="display">
-                        00:00:00:00
+                                <button type="submit" name="" class="save-button" onClick={this.insertChronometer}>
+                                    Save
+                                </button>
+
+                            </div>
+                        </div>
+                        <button type="submit" name="" class="example-button" onClick={this.getExampleChronometers}>
+                                    Example Chronometers
+                        </button>
+                        <button type="submit" name="" class="delete-stopped-button" onClick={this.deleteStoppedChronometers}>
+                                    Delete Stopped Chronometers
+                        </button>
+                        
                     </div>
-
-                    <div class="buttons">
-                        <button id="start-button" onclick="start()">Start</button>
-                        <button id="clear-button" onclick="clearTime()">Clear</button>
-                        <button id="delete-button" onclick="clearTime()">Delete</button>
-                    </div>
-                </div> */}
+                </div>
             </div>
-            
-            </Row>
-            </Container>
         </div>
+
+        <div className="container-fluid">
+            <div className="row">
+                <div class="saved-background">
+                    {
+                    /*
+                    Created Chronometer Divs
+                     */
+                    /*
+                    <div class="item-container">
+
+                        <p id="name">Name</p>
+                        <p id="message"> Stopped! </p>
+
+                        <div id="display">
+                            00:00:00:00
+                        </div>
+
+                        <div class="buttons">
+                            <button id="start-button" onclick="start()">Start</button>
+                            <button id="clear-button" onclick="clearTime()">Clear</button>
+                            <button id="delete-button" onclick="clearTime()">Delete</button>
+                        </div>
+                    </div> */}
+                </div>
+            </div>
+        </div>
+    </div>
 
         );
     }

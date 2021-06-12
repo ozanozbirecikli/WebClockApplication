@@ -3,7 +3,7 @@ import '../Styles/countdownStyles.css'
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import ReactDOM from 'react-dom'
-import { Container, Row, Col } from 'reactstrap'
+
 
 var globalID = localStorage.getItem("globalID") ? localStorage.getItem("globalID"): 0
 var intervals = {}
@@ -68,22 +68,26 @@ update = (cdObject) => {
     toWrite.innerHTML = cdObject.name + "\n" + cdObject.hour + ":" + cdObject.min + ":" +cdObject.sec
     
 }
-deleteClick = (id) => {
+
+deleteClick = (leave, id) => {
     var noofID = id.toString()
     noofID = parseInt(noofID.substring(3),10)
 
+    if(!leave){
     var cdss = localStorage.getItem("cds")
-    
     cdss = cdss.replace(noofID+"-id:","")
     cdss = cdss.replace(noofID+"-id","")
     localStorage.setItem("cds",cdss)
-    
-    var x = document.getElementById(id)
-    console.log(id)
-    var temp = ReactDOM.findDOMNode(document.getElementById(id)).parentNode
-    temp.parentNode.removeChild(temp)
 
-    window.clearInterval(intervals[noofID])
+    
+}
+    window.clearInterval(intervals[noofID])    
+    var div = document.getElementById(id)
+    if(div != null){
+    var temp = ReactDOM.findDOMNode(div).parentNode
+    temp.parentNode.removeChild(temp)
+    }
+    
 }
 check = () =>{
         var name = document.getElementById("countdown-name").value
@@ -118,7 +122,7 @@ addCountDown = (name,hour,minute,second) => {
         deleter.innerHTML = "DELETE"
         var deleteId = globalID
         deleter.onclick = () => {
-            this.deleteClick("div"+(deleteId));
+            this.deleteClick(false, "div"+(deleteId));
         }
         deleter.classList.add("deleteButton")
         CDdiv.appendChild(deleter)
@@ -140,13 +144,18 @@ addCountDown = (name,hour,minute,second) => {
         intervals[globalID-1] = interval 
     }
     else{
-        division = document.getElementById("warning").innerHTML= "One of the input is wrong, or more!"
+        if(minute>=60)
+            division = document.getElementById("warning").innerHTML= "Minute input is wrong!"
+        if(second>=60)
+            division = document.getElementById("warning").innerHTML= "Second input is wrong!"
     }
 }
 
 
 reloadPage = () => {
     var ids = localStorage.getItem("cds")
+    if(ids === null)
+        return
 
     if (ids.length >0)
         ids = ids.split(":")
@@ -171,7 +180,7 @@ reloadPage = () => {
             deleter.innerHTML = "DELETE"
 
             deleter.onclick = () => {
-                this.deleteClick("div"+enumber);
+                this.deleteClick(false, "div"+enumber);
             }
             deleter.classList.add("deleteButton")
             CDdiv.appendChild(deleter)
@@ -180,7 +189,7 @@ reloadPage = () => {
             CDdiv.classList.add("countDownStyle")
             document.body.appendChild(CDdiv)
 
-            var interval = window.setInterval(function(){this.update(cdObject)}, 1000);
+            var interval = window.setInterval(()=>{this.update(cdObject)}, 1000);
             intervals[enumber] = interval 
         }
 
@@ -190,45 +199,58 @@ reloadPage = () => {
         window.addEventListener('load', this.reloadPage);
     }
     componentWillUnmount() { 
+        Object.entries(intervals).forEach(([key, value]) => {  
+            this.deleteClick(true, ("div"+key))
+            console.log(key, value); 
+        });
+    
         window.removeEventListener('load', this.reloadPage)  
     }
      
-    render(){
-        return(
+render(){
+    return(
             
-            <div class="bgcountdownpage">
-                <Container fluid={true}>
-                    <Row>
-                        <Link to={{ pathname: "/home" }}>
+    <div class="bgcountdownpage">
+        
+        <div className="container-fluid">
+            
+            <Link to={{ pathname: "/home" }}>
+                <div className="row" style={{marginTop:"2%"}}>
+                    <div className="col">
                         <a class="homebutton">HOME</a>
-                        </Link>
-                    </Row>
-                <Row>
-                    <Col>
-                <div class="formClass" id="inputdiv">
-                    <nobr class="textGeneral"> Countdown Name</nobr>
-                    <input class="inputStyle" id="countdown-name" type="text"  name="cd-name"/>
-                    <br/>
-                    <nobr class="textGeneral"> Hour </nobr>
-                    <input class="inputStyle" id="hour" type="number" min="0" max="99" name="Hour"/>
-                    <br/>
-                    <nobr class="textGeneral"> Minute </nobr>
-                    <input class="inputStyle" id="minute" type="number"min="0" max="59" name="Minute"/>
-                    <br/>
-                    <nobr class="textGeneral"> Second </nobr>
-                    <input class="inputStyle" id="second" type="number"min="0" max="59" name="Second"/>
-                    <br/>
-                    <p id="warning" class="textGeneral"/>
+                    </div>
                 </div>
-                    </Col>
-                </Row>
-                </Container>
+            </Link>
+            <div class="wrapper">
+                <div className="row">
+                
+                    <div class="col align-items-center">
+                    <div className="row align-items-center">
+                        <div class="formClass" id="inputdiv">
+                            <nobr class="textGeneral"> Countdown Name</nobr>
+                            <input class="inputStyle" id="countdown-name" type="text"  name="cd-name"/>
+                            <br/>
+                            <nobr class="textGeneral"> Hour </nobr>
+                            <input class="inputStyle" id="hour" type="number" min="0" max="99" name="Hour"/>
+                            <br/>
+                            <nobr class="textGeneral"> Minute </nobr>
+                            <input class="inputStyle" id="minute" type="number"min="0" max="59" name="Minute"/>
+                            <br/>
+                            <nobr class="textGeneral"> Second </nobr>
+                            <input class="inputStyle" id="second" type="number"min="0" max="59" name="Second"/>
+                            <br/>
+                            <p id="warning" class="textGeneral"/>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
                 <br/>
                 <button class="plusButton" onClick={this.check}>Add Countdown</button>
                 <button class="plusButton" onClick={this.getExampleCountdowns}>Example Countdown</button>
                 
-            </div>
-
+        </div>
+    </div>
         );
     }
 
