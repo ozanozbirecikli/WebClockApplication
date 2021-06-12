@@ -41,11 +41,11 @@ Then User should click add countdown button, and countdown will start. If needed
 
 Users should fill the name of the chronometer to their needs. If the name is empty alert dialog will be shown to user which states that empty string is not allowed for chronometer name.
 
-![image](https://user-images.githubusercontent.com/41952823/117576205-a95b4200-b0ed-11eb-85b9-b8915dbd704e.png)
+![image](https://user-images.githubusercontent.com/41952823/121785694-f1c1c000-cbc3-11eb-9e89-a9caa76e0d5c.png)
 
 After users create chronometers each chronometer can be stopped, reset and deleted. Each chronometer works asyncronously and functions can be used seperately.
 
-![image](https://user-images.githubusercontent.com/41952823/117576249-de679480-b0ed-11eb-876f-b23460ca00a8.png)
+![image](https://user-images.githubusercontent.com/41952823/121785737-3fd6c380-cbc4-11eb-8913-a5f0d082d4d3.png)
 
 
 
