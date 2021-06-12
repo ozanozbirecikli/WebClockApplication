@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import ReactDOM from 'react-dom'
 import '../Styles/chronometerStyles.css'
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom'
+import { Container, Row, Col } from 'reactstrap'
 
 class chronometer{
     constructor(id, title, hour, minute, second, milisecond){
@@ -243,9 +244,14 @@ class ChronometerPage extends React.Component{
 
         <div class="main-background">
             <div class="top-background">
+                <Container fluid={true}>
             <Link to={{ pathname: "/home" }}>
+                <Row>
                 <a class="home-button">HOME</a>
+                </Row>
             </Link>
+                <Row>
+                <Col sm="12" md="12">
                 <div class="name-container">
                     <h2>Save Your Chronometer</h2>
                     <div class="name-input">
@@ -268,8 +274,12 @@ class ChronometerPage extends React.Component{
                 <button type="submit" name="" class="delete-stopped-button" onClick={this.deleteStoppedChronometers}>
                             Delete Stopped Chronometers
                 </button>
+                </Col>
+                </Row>
+                </Container>
             </div>
-
+            <Container fluid={true}>
+             <Row>
             <div class="saved-background">
                 {/* <div class="item-container">
 
@@ -287,7 +297,9 @@ class ChronometerPage extends React.Component{
                     </div>
                 </div> */}
             </div>
-
+            
+            </Row>
+            </Container>
         </div>
 
         );

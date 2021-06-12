@@ -3,7 +3,7 @@ import '../Styles/countdownStyles.css'
 import { Link } from "react-router-dom";
 import axios from 'axios'
 import ReactDOM from 'react-dom'
-
+import { Container, Row, Col } from 'reactstrap'
 
 var globalID = localStorage.getItem("globalID") ? localStorage.getItem("globalID"): 0
 var intervals = {}
@@ -86,8 +86,8 @@ deleteClick = (id) => {
     window.clearInterval(intervals[noofID])
 }
 check = () =>{
-        var name = document.getElementById("name").value
-        document.getElementById("name").value = ""
+        var name = document.getElementById("countdown-name").value
+        document.getElementById("countdown-name").value = ""
         
 
         var hour = document.getElementById("hour").value
@@ -197,27 +197,36 @@ reloadPage = () => {
         return(
             
             <div class="bgcountdownpage">
-                <Link to={{ pathname: "/home" }}>
-                <a class="homebutton">HOME</a>
-                </Link>
+                <Container fluid={true}>
+                    <Row>
+                        <Link to={{ pathname: "/home" }}>
+                        <a class="homebutton">HOME</a>
+                        </Link>
+                    </Row>
+                <Row>
+                    <Col>
                 <div class="formClass" id="inputdiv">
                     <nobr class="textGeneral"> Countdown Name</nobr>
-                    <input class="inputStyle" id="name" type="text" name="cd-name"/>
+                    <input class="inputStyle" id="countdown-name" type="text"  name="cd-name"/>
                     <br/>
-                    <nobr class="textGeneral"> Hour: </nobr>
-                    <input class="inputStyle" id="hour" type="text" name="Hour"/>
+                    <nobr class="textGeneral"> Hour </nobr>
+                    <input class="inputStyle" id="hour" type="number" min="0" max="99" name="Hour"/>
                     <br/>
-                    <nobr class="textGeneral"> Minute: </nobr>
-                    <input class="inputStyle" id="minute" type="text" name="Minute"/>
+                    <nobr class="textGeneral"> Minute </nobr>
+                    <input class="inputStyle" id="minute" type="number"min="0" max="59" name="Minute"/>
                     <br/>
-                    <nobr class="textGeneral"> Second: </nobr>
-                    <input class="inputStyle" id="second" type="text" name="Second"/>
+                    <nobr class="textGeneral"> Second </nobr>
+                    <input class="inputStyle" id="second" type="number"min="0" max="59" name="Second"/>
                     <br/>
                     <p id="warning" class="textGeneral"/>
                 </div>
+                    </Col>
+                </Row>
+                </Container>
                 <br/>
                 <button class="plusButton" onClick={this.check}>Add Countdown</button>
                 <button class="plusButton" onClick={this.getExampleCountdowns}>Example Countdown</button>
+                
             </div>
 
         );
